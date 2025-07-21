@@ -1,61 +1,188 @@
 <!DOCTYPE html>
-
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pedido para luiza yasmim</title>
+    <title>Pedido para uma linda moça</title>
 </head>
-
 <body>
+    <audio id="minhaMusica" src="musica.mp3"></audio>
+
     <div id="conteudo">
-        <h2>Aceita sair comigo???</h2>
-        <div style="margin: auto;width: 170px;">
-            <button style="position: fixed;display: block;" class="btn" onclick="sim()">SIM</button>
+        <h2>Mariana, você aceita sair comigo???</h2>
+
+        <div id="botoesContainer" style="margin: auto; width: 178px;">
+            <button style="position: fixed; display: block;" class="btn" onclick="sim()">SIM</button>
             <button class="btn" onclick="desvia(this)" onmouseover="desvia(this)" style="position: absolute;">NÃO</button>
         </div>
+
+        <div id="mensagemAceite" class="mensagem-aceite">
+            <p>Ebaa! Tinha certeza que você ia aceitar 🥰🥰 Mais informações no meu Whatsapp (48) 984948930</p>
+        </div>
+
+        <img id="gifCelebracao" class="gif-celebracao" src="celebracao.gif" alt="Celebração">
+
     </div>
+
+    <style>
+        #conteudo {
+            background-image: url('fundo.jpg'); /* Mude 'fundo.jpg' para o nome da sua imagem */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 10px;
+            text-align: center;
+            font-family: sans-serif;
+            overflow: hidden; /* Para garantir que nada transborde visualmente */
+        }
+
+        #conteudo h2 {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 2.8em;
+            color: #f7f7f7;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .btn {
+            background-color: #5cb85c; /* Cor de fundo verde para o "SIM" */
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            margin-left: -70px;
+        }
+
+        .btn:nth-child(2) { /* Estilo para o botão "NÃO" */
+            background-color: #d9534f; /* Cor de fundo vermelha para o "NÃO" */
+            margin-left: 30px; 
+            /* Não precisa repetir outras propriedades, pois já estão no .btn */
+        }
+
+        .btn:hover {
+            background-color: #4cae4c; /* Hover do "SIM" */
+            box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn:nth-child(2):hover { /* Hover do "NÃO" */
+            background-color: #c9302c;
+        }
+
+        /* Estilos para a mensagem de aceitação */
+        .mensagem-aceite {
+            display: none; /* Inicia escondido */
+            position: absolute; /* Posição absoluta para centralizar */
+            top: 50%; /* Metade do topo */
+            left: 50%; /* Metade da esquerda */
+            transform: translate(-50%, -50%); /* Centraliza o elemento precisamente */
+            background-color: rgba(0, 0, 0, 0.8); /* Fundo preto semi-transparente */
+            color: white; /* Texto branco */
+            padding: 15px 40px; /* Preenchimento interno generoso */
+            border-radius: 15px; /* Bordas arredondadas */
+            font-size: 1.7em; /* Tamanho da fonte maior */
+            font-weight: bold; /* Negrito */
+            text-align: center;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Sombra para destacar */
+            z-index: 1000; /* Garante que fique acima de outros elementos */
+            opacity: 0; /* Começa totalmente transparente */
+            transition: opacity 1s ease-in-out; /* Transição suave para aparecer */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Sombra no texto */
+            margin-top: 100px;
+        }
+
+        /* Classe para mostrar a mensagem com transição */
+        .mensagem-aceite.show {
+            opacity: 1; /* Torna totalmente visível */
+        }
+        .gif-celebracao {
+            display: none; /* Inicia escondido */
+            position: absolute; /* Para poder centralizar e sobrepor outros elementos */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 80%; /* Ajuste conforme o tamanho desejado */
+            max-height: 80%; /* Ajuste conforme o tamanho desejado */
+            z-index: 999; /* Para ficar acima do fundo, mas abaixo da mensagem (se sobrepostos) */
+            opacity: 0; /* Começa totalmente transparente */
+            transition: opacity 8s ease-in-out; /* Transição suave para aparecer */
+            margin-top: -200px;
+        }
+
+
+        /* Classe para mostrar o GIF com transição */
+        .gif-celebracao.show {
+            opacity: 1; /* Torna totalmente visível */
+        } 
+
+
+    </style>
+
+    <script>
+        function sim() {
+            const musica = document.getElementById('minhaMusica');
+            const mensagemAceite = document.getElementById('mensagemAceite');
+            const botoesContainer = document.getElementById('botoesContainer'); // Usando o ID adicionado
+            const gifCelebracao = document.getElementById('gifCelebracao'); // Obtém o elemento do GIF
+
+            // 1. Configura e tenta tocar a música
+            musica.loop = true;
+            musica.volume = 0.2; // 70% do volume original
+
+            const playPromise = musica.play();
+
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    console.log("Música iniciada com sucesso e volume ajustado!");
+                })
+                .catch(error => {
+                    console.error("Erro ao tentar tocar a música automaticamente:", error);
+                    // Aqui você pode adicionar um fallback, como um prompt para o usuário ativar o som manualmente
+                });
+            }
+
+            // 2. Esconde o container dos botões
+            if (botoesContainer) {
+                botoesContainer.style.display = 'none';
+            }
+
+            // 3. Mostra a mensagem de aceitação com transição
+            if (mensagemAceite) {
+                mensagemAceite.style.display = 'block'; // Torna o elemento visível
+                // Pequeno atraso para garantir que a propriedade display seja aplicada antes da transição de opacidade
+                setTimeout(() => {
+                    mensagemAceite.classList.add('show'); // Adiciona a classe para ativar a transição
+                }, 50);
+            }
+
+            // 4. Mostra o GIF de celebração com transição
+            if (gifCelebracao) {
+                gifCelebracao.style.display = 'block'; // Torna o GIF visível
+                setTimeout(() => {
+                    gifCelebracao.classList.add('show'); // Adiciona a classe para ativar a transição
+                }, 50);
+            }
+        }
+
+        function desvia(btn) {
+            btn.style.position = 'absolute';
+            btn.style.bottom = geraPosicao(10, 90);
+            btn.style.left = geraPosicao(10, 90);
+        }
+
+        function geraPosicao(min, max) {
+            return (Math.random() * (max - min) + min) + "%";
+        }
+    </script>
 </body>
-<style>
-    #conteudo {
-        background: #a09e9e;
-        width: 100%;
-        height: 100%;
-        position: fixed;
-        top: 0;
-        left: 0;
-        padding: 10px;
-        text-align: center;
-        font-family: sans-serif;
-    }
-
-    .btn {
-        background: rgb(0, 0, 0);
-        color: white;
-        border: none;
-        padding: 10px;
-        width: 80px;
-        border-radius: 5px;
-    }
-</style>
-
-<script>
-    function sim() {
-        alert("Ebaaa! mais informações no meu whatsapp 48984948930 :)");
-    }
-
-    function desvia(btn) {
-        // btn declarado na função
-        btn.style.position = 'absolute';
-        btn.style.bottom = geraPosicao(10, 90);
-        btn.style.left = geraPosicao(10, 90);
-        console.log('opa, desviei...');
-    }
-
-    function geraPosicao(min, max) {
-        return (Math.random() * (max - min) + min) + "%";
-    }
-
-</script>
-
 </html>
